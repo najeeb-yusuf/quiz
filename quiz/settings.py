@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-u%py%rr=+sr7nh-j529)&=vcypcfv6rl_*6v&gfw82$*_h%nyi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['najeeby.pythonanywhere.com']
+ALLOWED_HOSTS = [
+    'najeeby.pythonanywhere.com',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -124,3 +127,13 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+EMAIL_HOST_USER = 'yusufnajlawal@gmail.com'
+
+EMAIL_HOST_PASSWORD = "jjhkhvlnqnrizgbq"
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = 465
+
+EMAIL_USE_SSL = True

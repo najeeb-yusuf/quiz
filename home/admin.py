@@ -5,3 +5,4 @@ from . models import Question,Option,Section
 admin.site.register(Question)
 admin.site.register(Option)
 admin.site.register(Section)
+

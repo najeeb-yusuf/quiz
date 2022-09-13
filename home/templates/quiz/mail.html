@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter your mail</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container-fluid d-flex justify-content-center align-items-center flex-column justify-content-between"
+        style="height: 100vh;">
+        <div class="my-4 container title text-center">
+            {% if lang == 'en' %}
+            <h1><b>Enter your mail</b></h1>
+            {% else %}
+            <h1><b>Digite seu e-mail   </b></h1>
+            {% endif %}
+        </div>
+        <div class="container">
+            <form action="{% url 'mail' %}" method="post">
+                {% csrf_token %}
+                <div class="container col-md-6 d-flex flex-row">
+                    {% if lang == 'en' %}
+                    <input type="text" name="mail" id="mail" class="form-control m-2 p-2"
+                        placeholder="Enter your mail..." aria-errormessage="Required field" required>
+                    {% else %}
+                    <input type="text" name="mail" id="mail" class="form-control m-2 p-2"
+                        placeholder="digite seu e-mail..." aria-errormessage="Required field" required>
+                    {% endif %}
+                    <button class="btn btn-primary m-2 p-2">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                        <svg class="bi" width="30" height="24">
+                            <use xlink:href="#bootstrap" />
+                        </svg>
+                    </a>
+                    <span class="mb-3 mb-md-0 text-muted">&copy; 2022<a href="https://www.linkedin.com/in/najeeb-yusuf/"
+                            class="text-muted"> Najeeb Yusuf</a></span>
+                </div>
+
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>
