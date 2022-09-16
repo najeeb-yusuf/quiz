@@ -14,9 +14,15 @@
 <body style="font-family:Verdana, Geneva, Tahoma, sans-serif;">
   <div class="container-fluid">
     <div class="modal-container container text-center m-3">
+      {% if lang == 'en' %}
       <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Send results by mail
       </button>
+      {% else %}
+      <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Enviar resultados por correio
+      </button>
+      {% endif %}
     
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -25,15 +31,24 @@
             {% csrf_token %}
           <div class="modal-content">
             <div class="modal-header">
+              {% if lang == 'en' %}
               <h5 class="modal-title" id="exampleModalLabel">Enter email: </h5>
+              {% else %}
+              <h5 class="modal-title" id="exampleModalLabel">Digite o e-mail:</h5>
+              {% endif %}
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input type="email" name="mail" id="mail" class="form-control" required>
               </div>
               <div class="modal-footer">
+                {% if lang == 'en' %}
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Send mail</button>
+                {% else %}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Perto</button>
+                <button type="submit" class="btn btn-primary">Enviar correio</button>
+                {% endif %}
               </div>
             </form>
           </div>
@@ -46,14 +61,22 @@
       <ul class="list-group text-center col-md-6">
         {% for item in data %}
         <li class="list-group-item d-flex justify-content-between align-items-start">
+          {% if lang == 'en' %}
           <div class="ms-2 me-auto">
             <div class="fw-bold text-start">Pillar {{ item.2  }}</div>
             {{ item.3 }}
           </div>
+          {% else %}
+          <div class="ms-2 me-auto">
+            <div class="fw-bold text-start">Pilar {{ item.2  }}</div>
+            {{ item.5 }}
+          </div>
+          {% endif %}
           <span class="text-danger"><b>{{ item.0 }}/{{ item.1 }}</b></span>
         </li>   
         {% endfor %}
 
+        {% if lang == 'en' %}
         <li class="shadow-lg my-4 border-dark">
           <table class="table border border-dark">
             <tbody class="border-dark">
@@ -93,6 +116,48 @@
             </tbody>
             </table>
         </li>
+        {% else %}
+        <li class="shadow-lg my-4 border-dark">
+          <table class="table border border-dark">
+            <tbody class="border-dark">
+              <tr>
+                <th scope="row">Maturidade</th>
+                <th>Pilar 1</th>
+                <th>Pilar 2</th>
+                <th>Pilar 3</th>
+                <th>Pilar 4</th>
+                <th>Pilar 5</th>
+              </tr>
+              <tr class="table-danger">
+                <th scope="row">Inicindo</th>
+                <td>0-17</td>
+                <td>0-17</td>
+                <td>0-12</td>
+                <td>0-15</td>
+                <td>0-9</td>
+
+              </tr>
+              <tr class="table-warning">
+                <th scope="row">Integrando</th>
+                <td>18-45</td>
+                <td>18-45</td>
+                <td>13-30</td>
+                <td>16-37</td>
+                <td>10-22</td>
+              </tr>
+              <tr class="table-success">
+                <th scope="row">Consolidando</th>
+                <td>46-60</td>
+                <td>46-60</td>
+                <td>31-40</td>
+                <td>38-50</td>
+                <td>23-30</td>
+              </tr>
+            </tbody>
+            </table>
+        </li>
+        {% endif %}
+
       </ul>
       <div class="container chart col-md-6">
         <canvas id="myChart"></canvas>

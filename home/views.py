@@ -29,12 +29,17 @@ def index(request):
     })
 
 def results(request):
+    lang = request.session.get('lang')
     section_totals = {}
     section_max = []
     section_desc = []
     for section in Section.objects.all():
         section_max.append(sum([question.weight for question in section.questions.all()]))
-        section_desc.append(section.title)
+        if lang == 'en':
+            section_desc.append(section.title)
+        else:
+            section_desc.append(section.title_pt)
+
     
     if request.method == 'POST':
         for i,q_id in enumerate(request.POST):
@@ -58,7 +63,8 @@ def results(request):
     data = list(zip(list(section_totals.values()),section_max, list(section_totals.keys()),section_desc))
     return render(request, 'quiz/results.html', {
         "data" :data,
-        'percentages': percentages
+        'percentages': percentages,
+        'lang': lang,
         })
 
 def enter_mail(request):
