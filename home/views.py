@@ -128,7 +128,8 @@ def send_email(request):
 
                 """)
         try:
-            key = "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"
+#             make sure you define an environment variable in the production environment
+            key = os.getenv('API_KEY')
             sg = SendGridAPIClient(key)
             response = sg.send(message)
 
