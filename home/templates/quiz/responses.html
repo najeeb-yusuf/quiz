@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responses</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+ 
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container mt-4 d-flex flex-row justify-content-between">
+            <div class=""></div>
+            <h1 class=" text-center text-muted">Responses</h1>
+            <span class="text-muted"> <a href="{% url 'logout' %}">Logout</a></span>
+        </div>
+        <table class="table m-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Pillar 1</th>
+                    <th scope="col">Pillar 2</th>
+                    <th scope="col">Pillar 3</th>
+                    <th scope="col">Pillar 4</th>
+                    <th scope="col">Pillar 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for response in responses %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ response.email }}</td>
+                    {% for grade in response.grades.all %}
+                    <td>{{ grade.grade }}</td>
+                    {% endfor %}
+                </tr>
+
+
+
+
+
+
+
+
+
+                {% empty %}
+                <tr class="text-muted">
+                    <td>0</td>
+                    <td colspan="6"><h1>No responses yet</h1></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

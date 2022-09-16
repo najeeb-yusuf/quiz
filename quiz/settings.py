@@ -128,11 +128,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-EMAIL_HOST_USER = 'yusufnajlawal@gmail.com'
+EMAIL_HOST_USER = 'noreply@2079productions.com'
 
-EMAIL_HOST_PASSWORD = "jjhkhvlnqnrizgbq"
+EMAIL_HOST_PASSWORD = "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"
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.sendgrid.net'
 
 EMAIL_PORT = 465
 

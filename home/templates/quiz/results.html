@@ -29,11 +29,11 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="email" name="email" id="email" class="form-control" required>
+                <input type="email" name="mail" id="mail" class="form-control" required>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Send mail</button>
               </div>
             </form>
           </div>
@@ -53,6 +53,7 @@
           <span class="text-danger"><b>{{ item.0 }}/{{ item.1 }}</b></span>
         </li>   
         {% endfor %}
+
         <li class="shadow-lg my-4 border-dark">
           <table class="table border border-dark">
             <tbody class="border-dark">
