@@ -14,8 +14,6 @@ import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-from dotenv import load_dotenv
-load_dotenv()
 
 
 def language(request):
