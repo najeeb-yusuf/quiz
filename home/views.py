@@ -103,20 +103,13 @@ def enter_mail(request):
 def send_email(request):
     lang = request.session.get('lang')
     email = request.POST.get('mail')
-    if lang == 'en':
-        subject = "DIMA Questionnaire results"
-        message = "This is a test message"
-    else:
-        subject = "EDIP resultados do questionário"
-        message = "Portugese"
     from_email = 'noreply@2079productions.com'
     results = request.session['results']
     if email:
-        message = Mail(from_email=from_email,
-                to_emails=email,
-                subject=subject,
-                plain_text_content="Here are your results",
-                html_content=f"""
+        if lang == 'en':
+            subject = "DIMA Questionnaire results"
+            message = "This is a test message"
+            html_content = f"""
                 <div><strong><u> Results </u> </strong></div>
                 <br>
                 <table class="GeneratedTable" style="border: 1px solid black;
@@ -125,11 +118,11 @@ def send_email(request):
   border-collapse: collapse;">
                     <tr style="border: 1px solid black;
   border-collapse: collapse;">
-                    <th>Pillar 1</th>
-                    <th>Pillar 2</th>
-                    <th>Pillar 3</th>
-                    <th>Pillar 4</th>
-                    <th>Pillar 5</th>
+                    <th>Pillar 1: Mission, Values & Behaviors</th>
+                    <th>Pillar 2: Governance & Company Operations</th>
+                    <th>Pillar 3: Policies, Compliance & Protective Measures</th>
+                    <th>Pillar 4: Business Partnerships & External Relationships</th>
+                    <th>Pillar 5: Proactive Equity Outreach</th>
                     </tr>
                 </thead>
                 <tbody style="border: 1px solid black;
@@ -146,7 +139,47 @@ def send_email(request):
                 </table>
 
 
-                """)
+                """
+        else:
+            subject = "EDIP resultados do questionário"
+            message = "Portugese"
+            html_content = f"""
+                <div><strong><u> Resultados </u> </strong></div>
+                <br>
+                <table class="GeneratedTable" style="border: 1px solid black;
+  border-collapse: collapse;">
+                <thead style="border: 1px solid black;
+  border-collapse: collapse;">
+                    <tr style="border: 1px solid black;
+  border-collapse: collapse;">
+                    <th>Pillar 1: Missão, Valores e Comportamentos</th>
+                    <th>Pillar 2: Governança e  Operações da empresa</th>
+                    <th>Pillar 3: Policies, Compliance & Protective Measures</th>
+                    <th>Pillar 4: Parcerias de Negócios e Relacionamentos Externos</th>
+                    <th>Pillar 5: Ações Proativas de Equidade</th>
+                    </tr>
+                </thead>
+                <tbody style="border: 1px solid black;
+  border-collapse: collapse;">
+                    <tr style="border: 1px solid black;
+  border-collapse: collapse;">
+                    <td>{results[0][0]}/{results[0][1]}</td>
+                    <td>{results[1][0]}/{results[1][1]}</td>
+                    <td>{results[2][0]}/{results[2][1]}</td>
+                    <td>{results[3][0]}/{results[3][1]}</td>
+                    <td>{results[4][0]}/{results[4][1]}</td>
+                    </tr>
+                </tbody>
+                </table>
+
+
+                """
+
+        message = Mail(from_email=from_email,
+                to_emails=email,
+                subject=subject,
+                plain_text_content="Here are your results",
+                html_content=html_content)
         try:
 #             make sure you define an environment variable in the production environment
             key = os.getenv('API_KEY')
@@ -154,7 +187,8 @@ def send_email(request):
             response = sg.send(message)
 
             return render(request,'quiz/mail_success.html', {
-                'email': email
+                'email': email,
+                'lang' : lang
             })
         except Exception as e:
             print(e)

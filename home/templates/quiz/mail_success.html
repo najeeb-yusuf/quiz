@@ -9,7 +9,12 @@
 </head>
 <body>
 <div class="container">
-    <h4 class="text-muted"> Email sueccessfully delivered to: {{ email }}</h4>
+    {% if lang == 'en' %}
+    <h4 class="text-muted"> Email successfully delivered to: {{ email }}</h4>
+    {% else %}
+    <h4 class="text-muted"> 
+        E-mail entregue com sucesso para:{{ email }}</h4>
+    {% endif %}
 </div>
     
 </body>
