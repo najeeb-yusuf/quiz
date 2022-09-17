@@ -17,6 +17,14 @@ from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
 load_dotenv()
 
+from django import template
+
+# this allows me access an iterable using a forloop counter
+# django needs to allow this because what the hell
+register = template.Library()
+@register.filter
+def iterate(sequence, position):
+    return sequence[position]
 
 def language(request):
     return render(request, "quiz/language.html")
@@ -53,6 +61,14 @@ def results(request):
     results = list(zip(list(section_totals.values()),section_max))
     request.session['results'] = results
     percentages = [x/y*100 for x,y in results]
+
+    # return the tag and the corresponding class name to color it properly according to the grade.  Both in english and portugese
+    tags_en = map(lambda x: 'Starting' if 0 <= x < 30 else "Integrating" if 30 <= x < 75 else "Consolidating", percentages)
+    classes_en = map(lambda x: 'danger' if 0 <= x < 30 else "warning" if 30 <= x < 75 else "success", percentages)
+    tags_pt = map(lambda x: ('Iniciando','danger') if 0 <= x < 30 else ("Integrando",'warning') if 30 <= x < 75 else ("Consolidando",'success'), percentages)
+    tags = list(tags_en) if lang == 'en' else list(tags_pt)
+    classes = list(classes_en) if lang == 'en' else list(classes_en)
+
     # create a new response object to log the database whenever someone answers the quiz
     response = Response(email=request.session.get('mail'))
     response.save()
@@ -60,7 +76,7 @@ def results(request):
         new_grade = Grade(section=list(Section.objects.all())[i],grade=grade,response=response)
         new_grade.save()
 
-    data = list(zip(list(section_totals.values()),section_max, list(section_totals.keys()),section_desc))
+    data = list(zip(list(section_totals.values()),section_max, list(section_totals.keys()),section_desc,list(tags), list(classes)))
     return render(request, 'quiz/results.html', {
         "data" :data,
         'percentages': percentages,
@@ -143,6 +159,7 @@ def send_email(request):
                 'email': email
             })
         except Exception as e:
+            print(e)
             return HttpResponse('Error sending mail.')
     else:
         # In reality we'd use a form class
