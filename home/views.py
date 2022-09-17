@@ -62,10 +62,10 @@ def results(request):
 
     # return the tag and the corresponding class name to color it properly according to the grade.  Both in english and portugese
     tags_en = map(lambda x: 'Starting' if 0 <= x < 30 else "Integrating" if 30 <= x < 75 else "Consolidating", percentages)
-    classes_en = map(lambda x: 'danger' if 0 <= x < 30 else "warning" if 30 <= x < 75 else "success", percentages)
-    tags_pt = map(lambda x: ('Iniciando','danger') if 0 <= x < 30 else ("Integrando",'warning') if 30 <= x < 75 else ("Consolidando",'success'), percentages)
+    classes = map(lambda x: 'danger' if 0 <= x < 30 else "warning" if 30 <= x < 75 else "success", percentages)
+    tags_pt = map(lambda x: 'Iniciando'if 0 <= x < 30 else "Integrando"if 30 <= x < 75 else "Consolidando", percentages)
     tags = list(tags_en) if lang == 'en' else list(tags_pt)
-    classes = list(classes_en) if lang == 'en' else list(classes_en)
+    classes = list(classes)
 
     # create a new response object to log the database whenever someone answers the quiz
     response = Response(email=request.session.get('mail'))
