@@ -22,6 +22,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Pillar 1</th>
                     <th scope="col">Pillar 2</th>
                     <th scope="col">Pillar 3</th>
@@ -34,6 +35,7 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ response.email }}</td>
+                    <td>{{ response.date }}</td>
                     {% for grade in response.grades.all %}
                     <td>{{ grade.grade }}</td>
                     {% endfor %}

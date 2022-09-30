@@ -47,6 +47,7 @@ class Option(models.Model):
 class Response(models.Model):
     r_id = models.AutoField(primary_key=True)
     email = models.CharField(max_length=128)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self) -> str:
         return super().__str__()
