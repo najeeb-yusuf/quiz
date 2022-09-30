@@ -142,8 +142,8 @@ def results(request):
             return "warning"
         else:
             return "success"
-    tags = [determine_grade(i+1,x,lang) for i,x in enumerate(percentages)]
-    classes = [determine_class(i+1,x) for i,x in enumerate(percentages)]
+    tags = [determine_grade(i+1,x,lang) for i,x in enumerate(section_totals.values())]
+    classes = [determine_class(i+1,x) for i,x in enumerate(section_totals.values())]
 
 
     # create a new response object to log the database whenever someone answers the quiz
