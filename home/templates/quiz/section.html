@@ -1,0 +1,18 @@
+{% extends 'quiz/template.html' %}
+{% load static %}
+
+{% block title %}
+<title> Section {{ section_number }}</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="d-flex m-2 justify-content-center align-items-center">
+        <img src="{% static '/'%}{{ section_image }}.png" alt="" style="height: 30vh; width: 30vh;">
+    </div>
+    <h2 class="text-danger"> {{  section_title }}</h2>
+    <h4> {{ section_description | safe }}</h4>
+    <div class="d-flex justify-content-center align-items-center"><a href="{% url 'serve' %}" class="btn text-center btn-primary btn-lg"> Next</a></div>
+</div>
+
+{% endblock %}

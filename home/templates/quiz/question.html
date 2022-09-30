@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <style>
+         body
+ {
+     font-size: 22px; 
+ }
+ h1
+ {
+    font-size:42px;
+ }
+
+ @media (min-width: 768px) 
+ {
+    body
+    {
+        font-size: 27px; 
+    }
+    h1
+    {
+        font-size:24px;
+    }
+ }
+    </style>
+</head>
+
+<body class=" d-flex flex-column justify-content-between align-items-center" style="height: 100vh;">
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <div class="container d-flex justify-content-between">
+              <a href="{% url 'lang' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                <span class="fs-4"> <img src="{% static 'dima-logo.png' %}" style="width: 20vh;"></span>
+              </a>
+              <span class="lead text-muted"> {{ question.q_id }}/24</span>
+          </div>
+    
+          <ul class="nav nav-pills">
+
+          </ul>
+        </header>
+        <h1 class="lead text-danger">
+            {% if lang == 'en' %}
+            <strong>{{ question.section.title }}</strong>
+            {% else %}
+            <strong>{{ question.section.title_pt }}</strong>
+            {% endif %}
+
+        </h1>
+      </div>
+    <div class="container m-1" > 
+
+        <form action="{% url 'serve' %}" method="post">
+            {% csrf_token %}
+            <h1 class="" aria-disabled="true">{{ question.text }}</h1>
+            {% for option in question.options.all %}
+                <div class="form-check option ">
+                    <input class="form-check-input answers" type="radio" name="value"
+                        id="{{ question.q_id }}-{{ option.o_id }}" value="{{ option.weight }}" required>
+                        {% if lang == 'en' %}
+                        <label class="form-check-label text-secondary" for="{{ question.q_id }}-{{ option.o_id }}">
+                            {{ option.text }}
+                        </label>
+                        {% else %}
+                        <label class="form-check-label text-secondary" for="{{ question.q_id }}-{{ option.o_id }}">
+                            {{ option.text_pt }}
+                        </label>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <input type="text" name="question" value="{{ question.q_id }}" hidden>
+            <div class="d-flex justify-content-center m-4"><button type="submit" class="btn btn-primary btn-lg"> Next</button></div>
+        </form>
+    </div>
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-muted"> <a href="https://dimaconsult.com/"
+                    class="text-muted"> DIMA</a>&copy; 2022</span>
+            </div>
+
+        </footer>
+    </div>
+</body>
+</html>
+
+

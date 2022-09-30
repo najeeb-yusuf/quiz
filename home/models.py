@@ -19,6 +19,7 @@ class Section(models.Model):
     # portugese title and description
     title_pt = models.TextField(verbose_name='title pt', blank=True, null=True)
     desc_pt = models.TextField(verbose_name='text description pt', blank=True, null=True)
+    image = models.TextField()
 
     def __str__(self) -> str:
         return f"{self.title}"

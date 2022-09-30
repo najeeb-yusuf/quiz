@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if lang == 'en' %}
+    <title>Introduction to DIMA</title>
+    {% else %}
+    <title>Introdução ao EDIP</title>
+    {% endif %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+
+</head>
+
+<body  style="font-family:Raleway,Helvetica,Arial,Lucida,sans-serif;">
+    <div class="container d-flex flex-column justify-content-between align-items-center" style="height: 100vh;">
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+              <div class="container d-flex justify-content-between">
+                  <a href="{% url 'lang' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                    <span class="fs-4"> <img src="{% static 'dima-logo.png' %}" style="width: 20vh;"></span>
+                  </a>
+              </div>
+        
+              <ul class="nav nav-pills">
+    
+              </ul>
+            </header>
+          </div>
+        <div class="container-fluid text-center">
+            {% if lang == 'en' %}
+            <h1 class=""> Dima training questionnaire </h1>
+            <p>
+            <h5 class="text-muted">
+                This DEI maturity framework is designed to guide Small Growing Businesses in incorporating DEI measures
+                across all business functions. The pillars have both an internal and an external focus - you must have
+                your own house in order while also putting in place measures and creating strong relationships to
+                promote gender and racial equity beyond your company.
+            </h5>
+            </p>
+            {% else %}
+            <h1> Termômetro de Maturidade EDIP </h1>
+            <p>
+                <h5>
+                    Essa estrutura de maturidade de EDIP (Equidade, Diversidade, Inclusão e Pertencimento) foi projetada
+                    para orientar as pequenas empresas em crescimento na incorporação de medidas de EDIP em todas as funções
+                    de negócios. Os pilares têm foco interno e externo - é importante ter sua própria casa em ordem, ao
+                    mesmo tempo em que implementa medidas e cria relacionamentos fortes para promover a equidade de gênero e
+                    racial através da sua empresa.
+                    
+                    
+                    Todos direitos reservados - DIMA Consultoria 2022
+                </h5>
+            </p>
+            {% endif %}
+            <a  href="{% url 'serve' %}" class="btn btn-primary btn-lg"> Start quiz </a>
+        </div>
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                        <svg class="bi" width="30" height="24">
+                            <use xlink:href="#bootstrap" />
+                        </svg>
+                    </a>
+                    <span class="mb-3 mb-md-0 text-muted"> <a href="https://dimaconsult.com/"
+                        class="text-muted"> DIMA</a>&copy; 2022</span>
+                        
+                    </div>
+                    <a href="{% url 'login' %}" class="text-muted"> Admin</a>
+    
+            </footer>
+        </div>
+    </div>
+
+    <script src="{% static 'index.js' %}"></script>
+
+</body>
+
+</html>

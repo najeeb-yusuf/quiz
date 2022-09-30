@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,15 +11,22 @@
 
 </head>
 <body>
-    <div class="container-fluid d-flex justify-content-center align-items-center flex-column justify-content-between"
+    <div class="container-fluid d-flex align-items-center flex-column justify-content-between"
         style="height: 100vh;">
-        <div class="my-4 container title text-center">
-            {% if lang == 'en' %}
-            <h1><b>Enter your mail</b></h1>
-            {% else %}
-            <h1><b>Digite seu e-mail   </b></h1>
-            {% endif %}
-        </div>
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+              <div class="container d-flex justify-content-between">
+                  <a href="{% url 'lang' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                    <span class="fs-4"> <img src="{% static 'dima-logo.png' %}" style="width: 20vh;"></span>
+                  </a>
+              </div>
+        
+              <ul class="nav nav-pills">
+    
+              </ul>
+            </header>
+          </div>
         <div class="container">
             <form action="{% url 'mail' %}" method="post">
                 {% csrf_token %}
@@ -42,10 +50,12 @@
                             <use xlink:href="#bootstrap" />
                         </svg>
                     </a>
-                    <span class="mb-3 mb-md-0 text-muted">&copy; 2022<a href="https://www.linkedin.com/in/najeeb-yusuf/"
-                            class="text-muted"> Najeeb Yusuf</a></span>
-                </div>
-
+                    <span class="mb-3 mb-md-0 text-muted"> <a href="https://dimaconsult.com/"
+                        class="text-muted"> DIMA</a>&copy; 2022</span>
+                        
+                    </div>
+                    <a href="{% url 'login' %}" class="text-muted"> Admin</a>
+    
             </footer>
         </div>
     </div>

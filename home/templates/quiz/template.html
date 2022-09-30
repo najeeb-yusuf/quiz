@@ -6,13 +6,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select language </title>
-
+    {% block title %}
+    <title>DIMA Quiz</title>
+    {% endblock %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 
 </head>
 
-<body  class="container d-flex justify-content-between flex-column align-items-center" style="font-family:Raleway,Helvetica,Arial,Lucida,sans-serif; height: 100vh;">
+<body  style="font-family:Raleway,Helvetica,Arial,Lucida,sans-serif; height: 100vh;">
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
           <div class="container d-flex justify-content-between">
@@ -26,21 +27,18 @@
 
           </ul>
         </header>
-      </div>
-    <div class="d-flex justify-content-between flex-column" style="height: 100%;">
-        <div class="container dummy mt-3">
-            <h4 class="text-center text-muted">Select language</h4>
-        </div>
+        <h1 class="lead text-danger">
+            {% if lang == 'en' %}
+            <strong>{{ question.section.title }}</strong>
+            {% else %}
+            <strong>{{ question.section.title_pt }}</strong>
+            {% endif %}
 
-        <div class="buttons" >
-            <form action="{% url 'index' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" name="en" class="btn btn-outline-primary btn-lg">English</button>
-                <button type="submit" name="pt" class="btn btn-outline-info btn-lg">Portuges</button>
-            </form>
-        </div>
-        <div class="nothing"></div>
-       
+        </h1>
+      </div>
+    <div class="container d-flex justify-content-center align-items-center">
+        {% block body %}
+        {% endblock %}
     </div>
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -52,9 +50,7 @@
                 </a>
                 <span class="mb-3 mb-md-0 text-muted"> <a href="https://dimaconsult.com/"
                     class="text-muted"> DIMA</a>&copy; 2022</span>
-                    
-                </div>
-                <a href="{% url 'login' %}" class="text-muted"> Admin</a>
+            </div>
 
         </footer>
     </div>

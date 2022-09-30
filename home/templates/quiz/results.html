@@ -11,152 +11,185 @@
 
 </head>
 {{  tags.0  }}
-<body style="font-family:Verdana, Geneva, Tahoma, sans-serif;">
-  <div class="container-fluid">
-    <div class="modal-container container text-center m-3">
-      {% if lang == 'en' %}
-      <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Send results by mail
-      </button>
-      {% else %}
-      <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Enviar resultados por correio
-      </button>
-      {% endif %}
+<body class="d-flex flex-column justify-content-between" style="font-family:Verdana, Geneva, Tahoma, sans-serif; height: 100vh;">
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <div class="container d-flex justify-content-between">
+          <a href="{% url 'lang' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+            <span class="fs-4"> <img src="{% static 'dima-logo.png' %}" style="width: 20vh;"></span>
+          </a>
+      </div>
+
+      <ul class="nav nav-pills">
+
+      </ul>
+    </header>
+    <h1 class="lead text-danger">
+        {% if lang == 'en' %}
+        <strong>{{ question.section.title }}</strong>
+        {% else %}
+        <strong>{{ question.section.title_pt }}</strong>
+        {% endif %}
+
+    </h1>
+  </div>
+  <div>
+    <div class="container-fluid">
+      <div class="modal-container container text-center m-3">
+        {% if lang == 'en' %}
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Send results by mail
+        </button>
+        {% else %}
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Enviar resultados por correio
+        </button>
+        {% endif %}
     
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <form action="{% url 'send_mail' %}" method="post">
-            {% csrf_token %}
-          <div class="modal-content">
-            <div class="modal-header">
-              {% if lang == 'en' %}
-              <h5 class="modal-title" id="exampleModalLabel">Enter email: </h5>
-              {% else %}
-              <h5 class="modal-title" id="exampleModalLabel">Digite o e-mail:</h5>
-              {% endif %}
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="email" name="mail" id="mail" class="form-control" required>
-              </div>
-              <div class="modal-footer">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <form action="{% url 'send_mail' %}" method="post">
+              {% csrf_token %}
+            <div class="modal-content">
+              <div class="modal-header">
                 {% if lang == 'en' %}
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Send mail</button>
+                <h5 class="modal-title" id="exampleModalLabel">Enter email: </h5>
                 {% else %}
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Perto</button>
-                <button type="submit" class="btn btn-primary">Enviar correio</button>
+                <h5 class="modal-title" id="exampleModalLabel">Digite o e-mail:</h5>
                 {% endif %}
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-            </form>
+              <div class="modal-body">
+                  <input type="email" name="mail" id="mail" class="form-control" required>
+                </div>
+                <div class="modal-footer">
+                  {% if lang == 'en' %}
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Send mail</button>
+                  {% else %}
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Perto</button>
+                  <button type="submit" class="btn btn-primary">Enviar correio</button>
+                  {% endif %}
+                </div>
+              </form>
+            </div>
           </div>
+        </div>
+      </div>
+    <div class="container-fluid ">
+      <div class="container-fluid text-center row align-items-center justify-content-center">
+        <ul class="list-group text-center col-md-6">
+          {% for item in data %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="me-auto">
+              <div class="fw-bold text-start"> {{ item.3  }}</div>
+              <h5 class="text-start"><span class="badge bg-{{ item.5 }}">{{ item.4 }}</span></h5>
+            </div>
+            <span class="text-secondary"><b>{{ item.0 }}/{{ item.1 }}</b></span>
+          </li>
+          {% endfor %}
+          {% if lang == 'en' %}
+          <li class="list-group-item my-4">
+            <table class="table border border-dark">
+              <tbody class="border-dark">
+                <tr>
+                  <th scope="row">Maturity</th>
+                  <th>Pillar 1</th>
+                  <th>Pillar 2</th>
+                  <th>Pillar 3</th>
+                  <th>Pillar 4</th>
+                  <th>Pillar 5</th>
+                </tr>
+                <tr class="table-danger">
+                  <th scope="row">Starting</th>
+                  <td>0-17</td>
+                  <td>0-17</td>
+                  <td>0-12</td>
+                  <td>0-15</td>
+                  <td>0-9</td>
+                </tr>
+                <tr class="table-warning">
+                  <th scope="row">Integrating</th>
+                  <td>18-45</td>
+                  <td>18-45</td>
+                  <td>13-30</td>
+                  <td>16-37</td>
+                  <td>10-22</td>
+                </tr>
+                <tr class="table-success">
+                  <th scope="row">Consilidating</th>
+                  <td>46-60</td>
+                  <td>46-60</td>
+                  <td>31-40</td>
+                  <td>38-50</td>
+                  <td>23-30</td>
+                </tr>
+              </tbody>
+              </table>
+          </li>
+          {% else %}
+          <li class="list-group-item my-4">
+            <table class="table border border-dark">
+              <tbody class="border-dark">
+                <tr>
+                  <th scope="row">Maturidade</th>
+                  <th>Pilar 1</th>
+                  <th>Pilar 2</th>
+                  <th>Pilar 3</th>
+                  <th>Pilar 4</th>
+                  <th>Pilar 5</th>
+                </tr>
+                <tr class="table-danger">
+                  <th scope="row">Inicindo</th>
+                  <td>0-17</td>
+                  <td>0-17</td>
+                  <td>0-12</td>
+                  <td>0-15</td>
+                  <td>0-9</td>
+                </tr>
+                <tr class="table-warning">
+                  <th scope="row">Integrando</th>
+                  <td>18-45</td>
+                  <td>18-45</td>
+                  <td>13-30</td>
+                  <td>16-37</td>
+                  <td>10-22</td>
+                </tr>
+                <tr class="table-success">
+                  <th scope="row">Consolidando</th>
+                  <td>46-60</td>
+                  <td>46-60</td>
+                  <td>31-40</td>
+                  <td>38-50</td>
+                  <td>23-30</td>
+                </tr>
+              </tbody>
+              </table>
+          </li>
+          {% endif %}
+        </ul>
+        <div class="container chart col-md-6">
+          <canvas id="myChart"></canvas>
         </div>
       </div>
     </div>
   </div>
-  <div class="container-fluid ">
-    <div class="container-fluid text-center row align-items-center justify-content-center">
-      <ul class="list-group text-center col-md-6">
-        {% for item in data %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-          <div class="me-auto">
-            <div class="fw-bold text-start"> {{ item.3  }}</div>
-            <h5 class="text-start"><span class="badge bg-{{ item.5 }}">{{ item.4 }}</span></h5>
-          </div>
-          <span class="text-secondary"><b>{{ item.0 }}/{{ item.1 }}</b></span>
-        </li>   
-        {% endfor %}
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-muted"> <a href="https://dimaconsult.com/"
+                    class="text-muted"> DIMA</a>&copy; 2022</span>
+            </div>
 
-        {% if lang == 'en' %}
-        <li class="shadow-lg my-4 border-dark">
-          <table class="table border border-dark">
-            <tbody class="border-dark">
-              <tr>
-                <th scope="row">Maturity</th>
-                <th>Pillar 1</th>
-                <th>Pillar 2</th>
-                <th>Pillar 3</th>
-                <th>Pillar 4</th>
-                <th>Pillar 5</th>
-              </tr>
-              <tr class="table-danger">
-                <th scope="row">Starting</th>
-                <td>0-17</td>
-                <td>0-17</td>
-                <td>0-12</td>
-                <td>0-15</td>
-                <td>0-9</td>
-
-              </tr>
-              <tr class="table-warning">
-                <th scope="row">Integrating</th>
-                <td>18-45</td>
-                <td>18-45</td>
-                <td>13-30</td>
-                <td>16-37</td>
-                <td>10-22</td>
-              </tr>
-              <tr class="table-success">
-                <th scope="row">Consilidating</th>
-                <td>46-60</td>
-                <td>46-60</td>
-                <td>31-40</td>
-                <td>38-50</td>
-                <td>23-30</td>
-              </tr>
-            </tbody>
-            </table>
-        </li>
-        {% else %}
-        <li class="shadow-lg my-4 border-dark">
-          <table class="table border border-dark">
-            <tbody class="border-dark">
-              <tr>
-                <th scope="row">Maturidade</th>
-                <th>Pilar 1</th>
-                <th>Pilar 2</th>
-                <th>Pilar 3</th>
-                <th>Pilar 4</th>
-                <th>Pilar 5</th>
-              </tr>
-              <tr class="table-danger">
-                <th scope="row">Inicindo</th>
-                <td>0-17</td>
-                <td>0-17</td>
-                <td>0-12</td>
-                <td>0-15</td>
-                <td>0-9</td>
-
-              </tr>
-              <tr class="table-warning">
-                <th scope="row">Integrando</th>
-                <td>18-45</td>
-                <td>18-45</td>
-                <td>13-30</td>
-                <td>16-37</td>
-                <td>10-22</td>
-              </tr>
-              <tr class="table-success">
-                <th scope="row">Consolidando</th>
-                <td>46-60</td>
-                <td>46-60</td>
-                <td>31-40</td>
-                <td>38-50</td>
-                <td>23-30</td>
-              </tr>
-            </tbody>
-            </table>
-        </li>
-        {% endif %}
-
-      </ul>
-      <div class="container chart col-md-6">
-        <canvas id="myChart"></canvas>
-      </div>
+        </footer>
     </div>
-  </div>
   {{ data | json_script:"data" }}
   {{ percentages | json_script:"percentages" }}
 
@@ -213,8 +246,8 @@
       config
     );
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js
-  "></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
+
