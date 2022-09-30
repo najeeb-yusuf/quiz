@@ -308,7 +308,7 @@ def send_email(request):
 
 def responses(request):
     return render(request, 'quiz/responses.html', {
-        'responses':Response.objects.all()
+        'responses':Response.objects.all().desc()
     })
 
 
